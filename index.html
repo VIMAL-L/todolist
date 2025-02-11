@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            /* Basic Reset and Layout */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(45deg, #f06, #ffcc00);  /* Gradient background */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .todo-container {
+                background-color: #fff;
+                border-radius: 12px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                width: 350px;
+                text-align: center;
+                animation: fadeIn 1s ease-in-out;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            input {
+                padding: 12px;
+                width: 75%;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                font-size: 16px;
+                transition: border-color 0.3s ease;
+                margin-right: 10px;
+            }
+
+            input:focus {
+                border-color: #4CAF50;
+                outline: none;
+            }
+
+            button {
+                padding: 12px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin-top: 20px;
+            }
+
+            li {
+                background-color: #f9f9f9;
+                padding: 15px;
+                margin: 10px 0;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                animation: fadeInList 0.5s forwards;
+            }
+
+            li:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+
+            li button {
+                background-color: #ff4d4d;
+                border: none;
+                color: white;
+                padding: 8px 12px;
+                font-size: 14px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            li button:hover {
+                background-color: #e60000;
+                transform: scale(1.1);
+            }
+
+            /* Animation for fade-in effects */
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+
+            @keyframes fadeInList {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="todo-container">
+            <h1>Todo List</h1>
+            <div style="margin-bottom: 20px;">
+                <input id="input" placeholder="Enter a task">
+                <button onclick="onfun()">Add</button>
+            </div>
+            <ul id="list_container">
+
+            </ul>
+        </div>
+        <script>
+            var input = document.getElementById("input");
+            var ul = document.getElementById("list_container");
+
+            function onfun() {
+                if (input.value.trim() !== '') {  // Check if input is not empty
+                    var listitems = document.createElement("li");
+                    listitems.innerHTML = input.value + "<button onclick='deletelist(event)'>Delete</button>";
+                    ul.appendChild(listitems);
+                    input.value = ''; // Clear input field after adding
+                }
+            }
+
+            function deletelist(event) {
+                var listItem = event.target.parentElement;
+                listItem.style.animation = "fadeOut 0.5s forwards";  
+                setTimeout(function() {
+                    listItem.remove();
+                }, 500);  
+            }
+        </script>
+    </body>
+</html>
